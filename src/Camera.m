@@ -26,11 +26,18 @@ classdef Camera < handle
 
     methods
     function obj=Camera(cam_para)
-        obj.exposure=cam_para.exposure;
-        obj.frame_rate=cam_para.frame_rate;
-        obj.trigger_frames=cam_para.trigger_frames;
+         
         if isfield(cam_para,'ROI')
             obj.ROI=cam_para.ROI;
+        end
+        if isfield(cam_para,'exposure')
+           obj.exposure=cam_para.exposure;
+        end
+        if isfield(cam_para,'frame_rate')
+           obj.frame_rate=cam_para.frame_rate;
+        end
+        if isfield(cam_para,'trigger_frames')
+            obj.trigger_frames=cam_para.trigger_frames;
         end
         
     end
