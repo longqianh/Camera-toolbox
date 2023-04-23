@@ -123,6 +123,7 @@ classdef ThorlabsCam<Camera
         end
 
         function preview(obj)
+            obj.close();
             obj.setTriggerFrames(0);
             obj.open();
             obj.trigger_on();

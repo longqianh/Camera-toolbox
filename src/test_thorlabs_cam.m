@@ -16,13 +16,16 @@ cd('../');
 cam.info()
 
 %% Settings
+cam.close();
 cam.running_info()
-cam.setROI([0,0,1080,1440]) % set ROI before running
+cam.setROI([0,0,400,200]) % set ROI before running
 cam.running_info()
 cam.setExposure(1e-3);
 
 %% Preview (in the main thread yet)
+
 cam.preview();
+
 %% Setting After Preview
 cam.close();
 cam.running_info();
