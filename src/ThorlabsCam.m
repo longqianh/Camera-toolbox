@@ -16,7 +16,7 @@ classdef ThorlabsCam<Camera
             % TODO: custom image processing code goes here
             imageHeight = imageFrame.ImageData.Height_pixels;
             imageWidth = imageFrame.ImageData.Width_pixels;
-            imageData2D = reshape(imageData, [imageHeight,imageWidth]);
+            imageData2D = reshape(imageData, [imageWidth,imageHeight])';
             
         end
     end
@@ -176,11 +176,14 @@ classdef ThorlabsCam<Camera
         end
 
         function img=capture(obj,savePath)
+            
             obj.trigger_on();
             imageFrame = obj.tlCamera.GetPendingFrameOrNull;
             if ~isempty(imageFrame)
                 img=obj.processFrameData(imageFrame);
-                save(savePath, 'img')
+                if nargin==2
+                    save(savePath, 'img');
+                end
             else
                 fprintf("Empty Frame\n");
             end
