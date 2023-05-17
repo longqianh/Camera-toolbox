@@ -1,9 +1,5 @@
 classdef ICCamera < Camera
-    properties
-        
-        gain
-        frame_delay
-    end
+
     properties (Access = private)
         cam
         max_frame_rate
@@ -28,7 +24,6 @@ classdef ICCamera < Camera
 
         vid = videoinput('tisimaq_r2013_64', cam_para.device_id, cam_para.vidtype);
         vid.FramesPerTrigger = cam_para.trigger_frames;
-        obj.frame_delay=cam_para.frame_delay;
         obj.wait_time=cam_para.trigger_frames*(1/cam_para.frame_rate+cam_para.frame_delay);
         vid.ReturnedColorspace = 'grayscale';
         vid.ROIPosition = cam_para.ROI;
@@ -48,11 +43,11 @@ classdef ICCamera < Camera
             src.FrameRate = cam_para.frame_rate;
             obj.frame_rate = cam_para.frame_rate;
         end
-        src.Gain = cam_para.gain;
+        % src.Gain = cam_para.gain;
         preview(vid);
         obj.cam=vid;
 %         obj.ROI=vid.ROIPosition;
-        obj.gain=src.Gain; 
+        % obj.gain=src.Gain; 
 %         obj.trigger_frames=vid.FramesPerTrigger;        
         obj.device_id=cam_para.device_id;
     end
@@ -93,7 +88,6 @@ classdef ICCamera < Camera
     function setGain(obj,val)
         src=getselectedsource(obj.cam);
         src.Gain=val;
-        obj.gain=val;
     end
 
     function setFrameRate(obj,val)
@@ -136,11 +130,11 @@ classdef ICCamera < Camera
         %     figure;subplot(121);imshow(cap_image);subplot(122);imshow(imrotate(cap_image,-3));
         if nargin==2, save(savePath, 'img'); end
     end
-    function stop_preview(obj)
+    function close(obj)
         stoppreview(obj.cam);
     end
 
-    function start_preview(obj)
+    function preview(obj)
         preview(obj.cam);
     end
 
@@ -160,7 +154,7 @@ classdef ICCamera < Camera
 %     end
 
     function free(obj)
-        obj.stop_preview();
+        obj.close();
         delete(obj.cam);
 
     end
