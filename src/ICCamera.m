@@ -131,7 +131,7 @@ classdef ICCamera < Camera
         stop(obj.cam);
         img=double(mean(img,4))./65536.0;
         %     figure;subplot(121);imshow(cap_image);subplot(122);imshow(imrotate(cap_image,-3));
-        if nargin==2, save(savePath, 'img'); end
+        if nargin==2, imwrite(img,savePath); end
     end
     function close(obj)
         stoppreview(obj.cam);
