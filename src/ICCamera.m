@@ -4,6 +4,7 @@ classdef ICCamera < Camera
         cam
         max_frame_rate
         wait_time
+        frame_delay
     end
     methods
     function obj=ICCamera(cam_para)
@@ -32,7 +33,8 @@ classdef ICCamera < Camera
         src = getselectedsource(vid);
         obj.max_frame_rate=src.FrameRate;
         src.ExposureAuto = 'Off';
-        
+        src.ExposureAuto = "Off";
+        src.GainAuto = "Off";
         if 1/cam_para.exposure>obj.max_frame_rate
             % 曝光时间对应帧率大于最大帧率, 以曝光时间为准
             obj.frame_rate=obj.max_frame_rate;
@@ -50,6 +52,7 @@ classdef ICCamera < Camera
         % obj.gain=src.Gain; 
 %         obj.trigger_frames=vid.FramesPerTrigger;        
         obj.device_id=cam_para.device_id;
+        obj.frame_delay=cam_para.frame_delay;
     end
 
     function info(obj)
