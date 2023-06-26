@@ -18,9 +18,9 @@ cam.info()
 %% Settings
 cam.close();
 cam.running_info()
-cam.setROI([0,0,400,200]) % set ROI before running
+cam.setROI([980,40,270,270]) % set ROI before running
 cam.running_info()
-cam.setExposure(1e-3);
+cam.setExposure(15e-3);
 
 %% Preview (in the main thread yet)
 
@@ -34,7 +34,7 @@ cam.open();
 cam.running_info();
 
 %% Capture 
-img=cam.capture('test.tiff');
+img=cam.capture();
 figure;
 imshow(img,[]);colorbar;
 %% Capture Multiple

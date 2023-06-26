@@ -4,7 +4,7 @@ classdef Camera < handle
         trigger_frames
         frame_rate
         ROI 
-
+        frame_delay
     end
 
     properties (Access=protected)
@@ -38,6 +38,9 @@ classdef Camera < handle
         end
         if isfield(cam_para,'trigger_frames')
             obj.trigger_frames=cam_para.trigger_frames;
+        end
+        if isfield(cam_para,'frame_delay')
+            obj.frame_delay=cam_para.frame_delay;
         end
         
     end
