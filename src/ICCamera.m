@@ -4,7 +4,6 @@ classdef ICCamera < Camera
         cam
         max_frame_rate
         wait_time
-        frame_delay
     end
     methods
     function obj=ICCamera(cam_para)
@@ -25,7 +24,7 @@ classdef ICCamera < Camera
 
         vid = videoinput('tisimaq_r2013_64', cam_para.device_id, cam_para.vidtype);
         vid.FramesPerTrigger = cam_para.trigger_frames;
-        obj.wait_time=cam_para.trigger_frames*(1/cam_para.frame_rate+cam_para.frame_delay);
+        % obj.wait_time=cam_para.trigger_frames*(1/cam_para.frame_rate+cam_para.frame_delay);
         vid.ReturnedColorspace = 'grayscale';
         vid.ROIPosition = cam_para.ROI;
         
@@ -125,13 +124,16 @@ classdef ICCamera < Camera
 
     function img=capture(obj,savePath)
         
-        start(obj.cam);
-        wait(obj.cam,obj.wait_time);
-        img = getdata(obj.cam);
-        stop(obj.cam);
-        img=double(mean(img,4))./65536.0;
+        % start(obj.cam);
+        % wait(obj.cam,obj.wait_time);
+        % img = getdata(obj.cam);
+        % stop(obj.cam);
+        % img=double(mean(img,4))./65536.0;
+        img=getsnapshot(obj.cam);
         %     figure;subplot(121);imshow(cap_image);subplot(122);imshow(imrotate(cap_image,-3));
-        if nargin==2, imwrite(img,savePath); end
+        if nargin==2 
+            imwrite(img,savePath); 
+        end
     end
     function close(obj)
         stoppreview(obj.cam);

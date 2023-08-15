@@ -23,6 +23,31 @@ classdef Camera < handle
        setFrameRate(obj,val);
        
     end
+    
+    methods(Static)
+        function roi=selectROI(im)
+        
+            fig=figure('Color','White');
+            imshow(im,[]);hold on; 
+            
+            p1=ginput(1);disp('Choose the left-top point');scatter(p1(1),p1(2),'x');hold on;
+            p2=ginput(1);disp('Choose the right-bottom point');scatter(p2(1),p2(2),'x');hold on;
+            roi=[p1(1),p2(1),p1(2),p2(2)]; % [x1,x2,y1,y2]
+            hold on;
+            line([roi(1),roi(1)],[roi(3),roi(4)],'Color','cyan')
+            line([roi(2),roi(2)],[roi(3),roi(4)],'Color','cyan')
+            line([roi(1),roi(2)],[roi(3),roi(3)],'Color','cyan')
+            line([roi(1),roi(2)],[roi(4),roi(4)],'Color','cyan')
+            
+            roi=[p1(1),p1(2),p2(1)-p1(1),p2(2)-p1(2)];
+            disp("Press any key to close");
+            pause;
+            close(fig);
+            % figure;imshow(im(roi(3):roi(4),roi(1):roi(2)))
+    
+        end
+
+    end
 
     methods
     function obj=Camera(cam_para)
@@ -45,6 +70,7 @@ classdef Camera < handle
         
     end
 
+    
     end
 end
 

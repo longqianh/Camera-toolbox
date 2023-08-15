@@ -18,9 +18,9 @@ cam.info()
 %% Settings
 cam.close();
 cam.running_info()
-cam.setROI([980,40,270,270]) % set ROI before running
+cam.setROI([0,0,1000,1000]) % set ROI before running
 cam.running_info()
-cam.setExposure(15e-3);
+cam.setExposure(10e-3);
 
 %% Preview (in the main thread yet)
 
@@ -29,7 +29,9 @@ cam.preview();
 %% Setting After Preview
 cam.close();
 cam.running_info();
-cam.setFrameRate(30);
+cam.setFrameRate(100);
+cam.setExposure(15e-3);
+cam.setROI([420,550,330,330]) % set ROI before running
 cam.open();
 cam.running_info();
 
